@@ -1,13 +1,13 @@
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: ydata.ai
+  name: ydatas.ydata.ai
 spec:
   group: ydata.ai
   names:
-    kind: ydata
-    listKind: YdataList
-    plural: ydatas
+    kind: "ydata"
+    singular: "ydata"
+    plural: "ydatas"
   scope: Namespaced
   version: v1
   validation:
