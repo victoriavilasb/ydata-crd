@@ -1,0 +1,7 @@
+apiVersion: ydata.example.com/v1
+kind: ydata
+metadata:
+  name: ydata-test
+  namespace: "default"
+spec:
+  replicas: 1
