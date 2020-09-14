@@ -12,3 +12,7 @@ type YdataInterface interface {
 	Create(*Ydata) (*Ydata, error)
 	Watch(opts metav1.ListOptions) (watch.Interface, error)
 }
+
+type YdataExample interface {
+	Ydatas(namespace string) YdataInterface
+}

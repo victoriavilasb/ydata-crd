@@ -8,14 +8,14 @@ import (
 	"k8s.io/client-go/rest"
 )
 
-type ydataClient struct {
-	restClient rest.Interface
-	ns         string
+type Client struct {
+	rest rest.Interface
+	ns   string
 }
 
-func (c *ydataClient) List(opts metav1.ListOptions) (*domain.YdataList, error) {
+func (c *Client) List(opts metav1.ListOptions) (*domain.YdataList, error) {
 	result := domain.YdataList{}
-	err := c.restClient.
+	err := c.rest.
 		Get().
 		Namespace(c.ns).
 		Resource("ydatas").
@@ -26,9 +26,9 @@ func (c *ydataClient) List(opts metav1.ListOptions) (*domain.YdataList, error) {
 	return &result, err
 }
 
-func (c *ydataClient) Get(name string, opts metav1.GetOptions) (*domain.Ydata, error) {
+func (c *Client) Get(name string, opts metav1.GetOptions) (*domain.Ydata, error) {
 	result := domain.Ydata{}
-	err := c.restClient.
+	err := c.rest.
 		Get().
 		Namespace(c.ns).
 		Resource("ydatas").
@@ -40,9 +40,9 @@ func (c *ydataClient) Get(name string, opts metav1.GetOptions) (*domain.Ydata, e
 	return &result, err
 }
 
-func (c *ydataClient) Create(ydata *domain.Ydata) (*domain.Ydata, error) {
+func (c *Client) Create(ydata *domain.Ydata) (*domain.Ydata, error) {
 	result := domain.Ydata{}
-	err := c.restClient.
+	err := c.rest.
 		Post().
 		Namespace(c.ns).
 		Resource("ydatas").
@@ -53,9 +53,9 @@ func (c *ydataClient) Create(ydata *domain.Ydata) (*domain.Ydata, error) {
 	return &result, err
 }
 
-func (c *ydataClient) Watch(opts metav1.ListOptions) (watch.Interface, error) {
+func (c *Client) Watch(opts metav1.ListOptions) (watch.Interface, error) {
 	opts.Watch = true
-	return c.restClient.
+	return c.rest.
 		Get().
 		Namespace(c.ns).
 		Resource("ydatas").
