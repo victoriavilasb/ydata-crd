@@ -11,7 +11,7 @@ type YClient struct {
 	rest rest.Interface
 }
 
-func NewClient(c *rest.Config) (*YClient, error) {
+func NewClientConfig(c *rest.Config) (*YClient, error) {
 	config := *c
 	config.ContentConfig.GroupVersion = &schema.GroupVersion{Group: domain.GroupName, Version: domain.GroupVersion}
 	config.APIPath = "/apis"
