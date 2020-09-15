@@ -1,16 +1,18 @@
 package domain
 
 import (
+	"context"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 )
 
 // YdataInterface ..
 type YdataInterface interface {
-	List(opts metav1.ListOptions) (*YdataList, error)
-	Get(name string, options metav1.GetOptions) (*Ydata, error)
-	Create(*Ydata) (*Ydata, error)
-	Watch(opts metav1.ListOptions) (watch.Interface, error)
+	List(ctx context.Context, opts metav1.ListOptions) (*Ydatas, error)
+	Get(ctx context.Context, name string, options metav1.GetOptions) (*Ydata, error)
+	Create(context.Context, *Ydata) (*Ydata, error)
+	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
 }
 
 type YdataExample interface {

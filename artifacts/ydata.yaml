@@ -1,7 +1,7 @@
-apiVersion: ydata.ai/v1
-kind: "ydata"
+apiVersion: "ydata.ai/v1"
+kind: "Ydata"
 metadata:
-  name: ydata-test
+  name: ydata
   namespace: "kubeflow"
 spec:
   replicas: 1

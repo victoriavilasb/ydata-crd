@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -9,6 +10,7 @@ import (
 	"github.com/victoriavilasb/ydata-crd/domain"
 	"github.com/victoriavilasb/ydata-crd/domain/client"
 	"github.com/victoriavilasb/ydata-crd/infra/errors"
+	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -28,7 +30,7 @@ func init() {
 }
 
 func main() {
-
+	ctx := context.Background()
 	var err error
 	var config *rest.Config
 	if kubeconfig == "" {
@@ -50,14 +52,14 @@ func main() {
 		panic(err)
 	}
 
-	ydatas, err := clientSet.Ydatas("default").List(metav1.ListOptions{})
-	if err != nil {
-		panic(errors.New(err, errors.KindUnexpected))
-	}
+	// ydatas, err := clientSet.Ydatas("kubeflow").List(ctx, metav1.ListOptions{})
+	// if err != nil {
+	// 	panic(errors.New(err, errors.KindUnexpected))
+	// }
 
-	fmt.Printf("ydatas found: %+v\n", ydatas)
+	// fmt.Printf("ydatas found: %+v\n", ydatas)
 
-	watch := WatchResources(clientSet)
+	watch := WatchResources(ctx, clientSet)
 
 	for {
 		projectsFromStore := watch.List()
@@ -67,14 +69,14 @@ func main() {
 	}
 }
 
-func WatchResources(clientSet *client.YClient) cache.Store {
+func WatchResources(ctx context.Context, clientSet *client.YClient) cache.Store {
 	projectStore, projectController := cache.NewInformer(
 		&cache.ListWatch{
 			ListFunc: func(lo metav1.ListOptions) (result runtime.Object, err error) {
-				return clientSet.Ydatas("kubeflow").List(lo)
+				return clientSet.Ydatas("kubeflow").List(ctx, lo)
 			},
 			WatchFunc: func(lo metav1.ListOptions) (watch.Interface, error) {
-				return clientSet.Ydatas("kubeflow").Watch(lo)
+				return clientSet.Ydatas("kubeflow").Watch(ctx, lo)
 			},
 		},
 		&domain.Ydata{},

@@ -12,6 +12,7 @@ type YdataSpec struct {
 }
 
 // Ydata defines the structure of the resource
+// +kubebuilder:subresource:status
 type Ydata struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -19,7 +20,7 @@ type Ydata struct {
 	Spec YdataSpec `json:"spec"`
 }
 
-type YdataList struct {
+type Ydatas struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 
@@ -45,8 +46,8 @@ func (in *Ydata) DeepCopyObject() runtime.Object {
 }
 
 // DeepCopyObject returns a generically typed copy of an object
-func (in *YdataList) DeepCopyObject() runtime.Object {
-	out := YdataList{}
+func (in *Ydatas) DeepCopyObject() runtime.Object {
+	out := Ydatas{}
 	out.TypeMeta = in.TypeMeta
 	out.ListMeta = in.ListMeta
 
@@ -67,17 +68,17 @@ const (
 	GroupVersion = "v1"
 )
 
-var SchemeGroupVersion = schema.GroupVersion{Group: GroupName, Version: GroupVersion}
-
 var (
-	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
-	AddToScheme   = SchemeBuilder.AddToScheme
+	SchemeGroupVersion = schema.GroupVersion{Group: GroupName, Version: GroupVersion}
+	SchemeBuilder      = runtime.NewSchemeBuilder(addKnownTypes)
+	AddToScheme        = SchemeBuilder.AddToScheme
 )
 
 func addKnownTypes(scheme *runtime.Scheme) error {
+
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&Ydata{},
-		&YdataList{},
+		&Ydatas{},
 	)
 
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
