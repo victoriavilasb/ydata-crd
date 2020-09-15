@@ -16,5 +16,5 @@ FROM builder_base as builder
 COPY . /ydata-crd
 WORKDIR /ydata-crd
 
-RUN go build -a -installsuffix cgo -o server github.com/victoriavilasb/ydata-crd/cmd/server
+RUN go build -a -installsuffix cgo -o server github.com/victoriavilasb/ydata-crd/cmd/
 ENTRYPOINT /go/bin/server

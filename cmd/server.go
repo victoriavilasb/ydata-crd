@@ -9,7 +9,6 @@ import (
 
 	"github.com/victoriavilasb/ydata-crd/domain"
 	"github.com/victoriavilasb/ydata-crd/domain/client"
-	"github.com/victoriavilasb/ydata-crd/infra/errors"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -42,7 +41,7 @@ func main() {
 	}
 
 	if err != nil {
-		panic(errors.New(err, errors.KindUnexpected))
+		panic(err)
 	}
 
 	domain.AddToScheme(scheme.Scheme)
