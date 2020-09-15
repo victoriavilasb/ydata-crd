@@ -54,15 +54,15 @@ func main() {
 	watch := WatchResources(ctx, clientSet)
 
 	for {
-		projectsFromStore := watch.List()
-		fmt.Printf("ydata in store: %d\n", len(projectsFromStore))
+		ydataFromStore := watch.List()
+		fmt.Printf("ydata in store: %d\n", len(ydataFromStore))
 
 		time.Sleep(2 * time.Second)
 	}
 }
 
 func WatchResources(ctx context.Context, clientSet *client.YClient) cache.Store {
-	projectStore, projectController := cache.NewInformer(
+	ydataStore, ydataController := cache.NewInformer(
 		&cache.ListWatch{
 			ListFunc: func(lo metav1.ListOptions) (result runtime.Object, err error) {
 				return clientSet.Ydatas("kubeflow").List(ctx, lo)
@@ -76,6 +76,6 @@ func WatchResources(ctx context.Context, clientSet *client.YClient) cache.Store 
 		cache.ResourceEventHandlerFuncs{},
 	)
 
-	go projectController.Run(wait.NeverStop)
-	return projectStore
+	go ydataController.Run(wait.NeverStop)
+	return ydataStore
 }
