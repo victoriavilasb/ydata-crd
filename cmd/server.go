@@ -52,13 +52,6 @@ func main() {
 		panic(err)
 	}
 
-	// ydatas, err := clientSet.Ydatas("kubeflow").List(ctx, metav1.ListOptions{})
-	// if err != nil {
-	// 	panic(errors.New(err, errors.KindUnexpected))
-	// }
-
-	// fmt.Printf("ydatas found: %+v\n", ydatas)
-
 	watch := WatchResources(ctx, clientSet)
 
 	for {
