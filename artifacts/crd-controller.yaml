@@ -16,6 +16,13 @@ spec:
     spec:
       containers:
       - name: ydata-controller
-        image: gcr.io/exercise-victoriaovilas/ydata-controller:0.0.1
+        image: gcr.io/exercise-victoriaovilas/ydata-controller:0.0.3
         ports:
           - containerPort: 80
+        volumeMounts:
+        - name: config-vol
+          mountPath: /config
+      volumes:
+      - name: config-vol
+        configMap:
+          name: kubeconfig

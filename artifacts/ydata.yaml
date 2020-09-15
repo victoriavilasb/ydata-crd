@@ -2,6 +2,6 @@ apiVersion: "ydata.ai/v1"
 kind: "Ydata"
 metadata:
   name: ydata
-  namespace: "kubeflow"
+  namespace: "kubeflow-victoriaovilas"
 spec:
   replicas: 1

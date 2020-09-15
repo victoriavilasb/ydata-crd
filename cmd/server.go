@@ -65,10 +65,10 @@ func WatchResources(ctx context.Context, clientSet *client.YClient) cache.Store 
 	ydataStore, ydataController := cache.NewInformer(
 		&cache.ListWatch{
 			ListFunc: func(lo metav1.ListOptions) (result runtime.Object, err error) {
-				return clientSet.Ydatas("kubeflow").List(ctx, lo)
+				return clientSet.Ydatas("kubeflow-victoriaovilas").List(ctx, lo)
 			},
 			WatchFunc: func(lo metav1.ListOptions) (watch.Interface, error) {
-				return clientSet.Ydatas("kubeflow").Watch(ctx, lo)
+				return clientSet.Ydatas("kubeflow-victoriaovilas").Watch(ctx, lo)
 			},
 		},
 		&domain.Ydata{},
