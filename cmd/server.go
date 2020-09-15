@@ -55,7 +55,7 @@ func main() {
 
 	for {
 		projectsFromStore := watch.List()
-		fmt.Printf("project in store: %d\n", len(projectsFromStore))
+		fmt.Printf("ydata in store: %d\n", len(projectsFromStore))
 
 		time.Sleep(2 * time.Second)
 	}
