@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ydata-controller-deployment
+  labels:
+    app: ydata-controller
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ydata-controller
+  template:
+    metadata:
+      labels:
+        app: ydata-controller
+    spec:
+      containers:
+      - name: ydata-controller
+        image: gcr.io/exercise-victoriaovilas/ydata-controller:0.0.1
+        ports:
+          - containerPort: 80

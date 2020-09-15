@@ -1,20 +1,15 @@
-FROM golang:1.14-stretch as builder_base
+FROM golang:1.13-alpine3.10 as builder
 
-WORKDIR /ydata-crd
-
-ENV GO111MODULE=on
 ENV CGO_ENABLED=0
-ENV GOOS=linux
 
-COPY go.mod .
-COPY go.sum .
-
-RUN go mod download
-
-# STAGE 1: Build binaries
-FROM builder_base as builder
-COPY . /ydata-crd
 WORKDIR /ydata-crd
 
-RUN go build -a -installsuffix cgo -o server github.com/victoriavilasb/ydata-crd/cmd/
-ENTRYPOINT /go/bin/server
+COPY . .
+RUN go mod download
+RUN go build -o /server -mod=readonly ./cmd/server.go
+
+FROM alpine
+
+COPY --from=builder /server /server
+
+ENTRYPOINT [ "/server" ]

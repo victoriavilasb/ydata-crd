@@ -1,7 +1,7 @@
 crd:
 	@ kubectl apply -f artifacts/ydata-crd.yaml
 
-sample-crd:
+sample-resource:
 	@ kubectl apply -f artifacts/ydata.yaml
 
 server:
