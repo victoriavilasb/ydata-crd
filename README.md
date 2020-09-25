@@ -10,7 +10,7 @@ To understand CRD, here's a great [resource](https://www.youtube.com/watch?v=xGa
 
 This controller was deployed at GCP, and its image is in Google Container Registry.
 
-To run this locally you must have a kubernetes cluster configured in your machine, and this cluster must have a namespace named "kubeflow" (The reason is because this controller was built to run in kubeflow). 
+To run this locally you must have a kubernetes cluster configured in your machine, and this cluster must have a namespace named "kubeflow-victoriaovilas" (The reason is because this controller was built to run in kubeflow). 
 
 After that you can follow the steps below:
 ```sh
